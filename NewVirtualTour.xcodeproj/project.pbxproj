@@ -22,6 +22,7 @@
 		A91991871FA58F9E004B1EBA /* NewVirtualTourUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91991861FA58F9E004B1EBA /* NewVirtualTourUITests.swift */; };
 		A98EA5A41FBE8FF100717A4E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A919919A1FA59523004B1EBA /* Location.swift */; };
 		A98EA5A51FBE8FF400717A4E /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91991981FA59523004B1EBA /* Photo.swift */; };
+		A98EA5A81FBE9DE200717A4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91991661FA58F9E004B1EBA /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A98EA5A81FBE9DE200717A4E /* AppDelegate.swift in Sources */,
 				A91030431FBE8C74005F6179 /* FlickrConstants.swift in Sources */,
 				A910304F1FBE8DDB005F6179 /* CoreDataStackManager.swift in Sources */,
 				A91030491FBE8D23005F6179 /* PicGalleryViewController.swift in Sources */,
@@ -483,6 +485,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3BLNBS74P;
 				INFOPLIST_FILE = NewVirtualTour/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CeceMobile.NewVirtualTour;
@@ -499,6 +502,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G3BLNBS74P;
 				INFOPLIST_FILE = NewVirtualTour/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.CeceMobile.NewVirtualTour;
