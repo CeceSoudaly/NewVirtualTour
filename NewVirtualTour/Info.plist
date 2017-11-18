@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>NSLocationUsageDescription</key>
+    <string>$(NewVirtualTour)</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>$(NewVirtualTour)</string>
 </dict>
 </plist>

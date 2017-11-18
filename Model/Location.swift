@@ -1,17 +1,17 @@
 //
 //  Location+CoreDataClass.swift
-//  VirtualMapTour
+//  NewVirtualTour
 //
-//  Created by Cece Soudaly on 10/28/17.
+//  Created by Cece Soudaly on 11/18/17.
 //  Copyright © 2017 CeceMobile. All rights reserved.
 //
 //
+
 import Foundation
 import CoreData
 
 
-class Location: NSManagedObject {
-    
+public class Location: NSManagedObject {
     // Core data object attributes
     @NSManaged var title: String
     @NSManaged var subtitle: String
@@ -56,7 +56,8 @@ class Location: NSManagedObject {
         }
     }
     
-    
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Location> {
+        return NSFetchRequest<Location>(entityName: "Location");
+    }
+
 }
-
-

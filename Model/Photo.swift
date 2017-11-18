@@ -1,17 +1,17 @@
 //
 //  Photo+CoreDataClass.swift
-//  VirtualMapTour
+//  NewVirtualTour
 //
-//  Created by Cece Soudaly on 10/28/17.
+//  Created by Cece Soudaly on 11/18/17.
 //  Copyright © 2017 CeceMobile. All rights reserved.
 //
 //
 
 import Foundation
 import CoreData
-import UIKit
 
-class Photo: NSManagedObject {
+
+public class Photo: NSManagedObject {
     
     // Core data object attributes
     @NSManaged public var id: String?
@@ -67,6 +67,5 @@ class Photo: NSManagedObject {
             fatalError("Unable to find Entity name!")
         }
     }
-    
-}
 
+}

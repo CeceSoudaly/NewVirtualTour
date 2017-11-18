@@ -14,7 +14,7 @@ import CoreData
 extension FlickrClient {
     
     var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().context
+        return CoreDataStackManager.getContext()
     }
     
     
