@@ -24,6 +24,7 @@
 		A98EA5A81FBE9DE200717A4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91991661FA58F9E004B1EBA /* AppDelegate.swift */; };
 		A9EBD1991FC09179004C1709 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EBD1951FC09179004C1709 /* Photo.swift */; };
 		A9EBD19B1FC09179004C1709 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EBD1971FC09179004C1709 /* Location.swift */; };
+		A9F47D301FC0FBC900457B56 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9F47D2F1FC0FB6F00457B56 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		A93C8D3E1FC0AB580049FD0F /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		A9EBD1951FC09179004C1709 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		A9EBD1971FC09179004C1709 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		A9F47D2F1FC0FB6F00457B56 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9F47D301FC0FBC900457B56 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +120,7 @@
 				A919917A1FA58F9E004B1EBA /* NewVirtualTourTests */,
 				A91991851FA58F9E004B1EBA /* NewVirtualTourUITests */,
 				A91991641FA58F9E004B1EBA /* Products */,
+				A9F47D2E1FC0FB6F00457B56 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -171,6 +175,14 @@
 				A910304C1FBE8D8C005F6179 /* FlickrCoreDataManager.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A9F47D2E1FC0FB6F00457B56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9F47D2F1FC0FB6F00457B56 /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

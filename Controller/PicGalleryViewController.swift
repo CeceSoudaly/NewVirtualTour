@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import MapKit
 
-private let reuseIdentifier = "PicGallery"
+private let reuseIdentifier = "PhotoCell"
 
 class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MKMapViewDelegate, NSFetchedResultsControllerDelegate  {
     
@@ -33,7 +33,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
     // Datatask to fetch images for new collection
     var dataTask: URLSessionDataTask?
     
-    @IBOutlet weak var photoCollectionView: UICollectionView!
+   @IBOutlet weak var photoCollectionView: UICollectionView!
     
     
     @IBOutlet weak var layout: UICollectionViewFlowLayout!
@@ -50,7 +50,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
         // Register cell classes
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
-        photoCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        photoCollectionView.register(PhotoCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         addSelectedAnnotation()
         print("selected pin location: \(location)")
         
@@ -123,23 +123,27 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
-        configureCell(cell: cell, atIndexPath: indexPath as NSIndexPath)
-        return cell
+        
+        let cellPhoto = collectionView.dequeueReusableCell(withReuseIdentifier:"photoCell", for: indexPath) as! PhotoCell
+        configureCell(cell: cellPhoto, atIndexPath: indexPath as NSIndexPath)
+        
+        return cellPhoto
     }
     
     // This method will download the image and display as soon  as the imgae is downloaded
     func configureCell(cell:PhotoCell, atIndexPath indexPath:NSIndexPath) {
         
-        // Show the placeholder image till the time image is being downloaded
+        // Show the placeholder image untill the time image is being downloaded
         if cell != nil {
-            //print("\(PhotoCell)")
+            //print("\(cell)")
         }
         
         let photo = photoData[indexPath.row]
         
         var cellImage = UIImage(named: "imagePlaceholder")
+      
         cell.photoImage.image = nil
+  
         cell.photoDownloadActivityIndicator.startAnimating()
         
         // Set the flickr image if already available (from hard disk or image cache)
@@ -153,7 +157,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
             FlickrClient.sharedInstance().taskForImage(filePath: photo.imageUrl!) { (results, error) in
                 
                 guard let imageData = results else {
-                    //  self.displayAlert(title: "Image data error", message: error)
+                    self.displayAlert(title: "Image data error", message: "error")
                     return
                 }
                 
