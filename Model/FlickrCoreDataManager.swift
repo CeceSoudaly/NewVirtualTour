@@ -52,12 +52,9 @@ extension FlickrClient {
                         (dictionary: [String:AnyObject]) -> Photo in
                         var photosDictionary = dictionary
                         photosDictionary["pageNumber"] = newPageNumber as AnyObject
-                        
-                        //let photoToBeAdded = Photo(dictionary: newDictionary, context: self.sharedContext)
+              
                         //keep the creation of the photo and location creation by dictionary.
                         let photoToBeAdded = Photo(dictionary: photosDictionary, context: CoreDataStackManager.getContext())
-                        
-                        
                         photoToBeAdded.location = location
                         
                         return photoToBeAdded
@@ -69,8 +66,6 @@ extension FlickrClient {
         
         DispatchQueue.main.async{
             do{
-                //try self.sharedContext.save()
-                //try CoreDataStackManager.getContext().save()
                 CoreDataStackManager.saveContext()
                 print("Save to core data :")
             }

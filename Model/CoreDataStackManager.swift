@@ -13,26 +13,13 @@ import UIKit
 private let SQLITE_FILE_NAME = "VirtualTourist.sqlite"
 
 class CoreDataStackManager {
-    
-    /// NSPersistentStoreCoordinator error types
-    public enum CoordinatorError: Error {
-        /// .momd file not found
-        case modelFileNotFound
-        /// NSManagedObjectModel creation fail
-        case modelCreationError
-        /// Gettings document directory fail
-        case storePathNotFound
-    }
-    
-    
+  
     // MARK: Properties
-    
     private let model: NSManagedObjectModel
     internal let coordinator: NSPersistentStoreCoordinator
     private let modelURL: URL
     internal let dbURL: URL
     let context: NSManagedObjectContext
-    
     
     //MARK:- SharedInstance
     class func sharedInstance()-> CoreDataStackManager {
@@ -44,7 +31,6 @@ class CoreDataStackManager {
 
    
     //MARK:- The Core Data Stack
-    
     // Documents Directory URL - the path the sqlite file
     lazy var applicationDocumentsDirectory:NSURL? = {
         let urls = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
@@ -82,13 +68,10 @@ class CoreDataStackManager {
                 let url = appURL.appendingPathComponent(SQLITE_FILE_NAME)
                 
                 var error:NSError? = nil
-                
-//                if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) != nil  {
-//                    return coordinator
-//                }
+              
             }
         }
-//        self.raiseFatalCoreDataError(nil)
+       
         return coordinator
     }()
    
@@ -191,45 +174,3 @@ class CoreDataStackManager {
     
 }
 
-// MARK: - CoreDataStack (Removing Data)
-
-/*internal extension CoreDataStackManager  {
-    
-    func dropAllData() throws {
-        // delete all the objects in the db. This won't delete the files, it will
-        // just leave empty tables.
-        try coordinator.destroyPersistentStore(at: dbURL, ofType:NSSQLiteStoreType , options: nil)
-        try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
-    }
-}*/
-
-// MARK: - CoreDataStack (Save Data)
-
-/*extension CoreDataStackManager {
-    
-   func saveContext() throws {
-        if context.hasChanges {
-            try context.save()
-        }
-    }
-    
-    func autoSave(_ delayInSeconds : Int) {
-        
-        if delayInSeconds > 0 {
-            do {
-                try saveContext()
-                print("Autosaving")
-            } catch {
-                print("Error while autosaving")
-            }
-            
-            let delayInNanoSeconds = UInt64(delayInSeconds) * NSEC_PER_SEC
-            let time = DispatchTime.now() + Double(Int64(delayInNanoSeconds)) / Double(NSEC_PER_SEC)
-            
-            DispatchQueue.main.asyncAfter(deadline: time) {
-                self.autoSave(delayInSeconds)
-            }
-        }
-    }
-    
-}*/
