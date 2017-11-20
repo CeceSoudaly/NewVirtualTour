@@ -391,15 +391,6 @@ extension MapViewController {
             
             //Right call out button to display Flickr images
             pinView!.rightCalloutAccessoryView =  UIButton(type: UIButtonType.detailDisclosure)
-            
-            //  Left call out button as delete location button
-            //            let deleteLocationButton = UIButton(type: UIButtonType.system)
-            //            deleteLocationButton.frame = CGRect(x:0, y:0, width:200, height:300)
-            //            deleteLocationButton.setImage(UIImage(named: "deleteLocation"), for: UIControlState.normal)
-            //            deleteLocationButton.backgroundColor = UIColor.cyan
-            //            pinView?.leftCalloutAccessoryView = deleteLocationButton
-            //            pinView!.rightCalloutAccessoryView =  deleteLocationButton
-            //            pinView?.isEnabled = true
             annotaionToUpdate = pinView?.annotation
             
         } else {

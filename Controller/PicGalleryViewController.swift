@@ -14,10 +14,7 @@ private let reuseIdentifier = "PhotoCell"
 
 class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MKMapViewDelegate, NSFetchedResultsControllerDelegate  {
     
-    
     // Location object for which Flickr images are displayed in collection view
-    
-    
     var location:Location!
     var photoData:[Photo] = [Photo]()
     var selectedIndexPaths = [NSIndexPath]()
@@ -55,7 +52,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
         print("selected pin location: \(location)")
         
         fetchPhotos()
-        
+    
     }
     
     //Mark: Show Selected Pin on MapView
@@ -173,6 +170,8 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
         }else {
             cell.photoImage.alpha = 1.0
         }
+        
+        cell.photoDownloadActivityIndicator.hidesWhenStopped = true
     }
     
     //MARK:- Core Data
