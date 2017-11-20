@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A91030411FBE8C49005F6179 /* PhotoAlblumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91030401FBE8C49005F6179 /* PhotoAlblumViewController.swift */; };
+		A91030411FBE8C49005F6179 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91030401FBE8C49005F6179 /* MapViewController.swift */; };
 		A91030431FBE8C74005F6179 /* FlickrConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91030421FBE8C74005F6179 /* FlickrConstants.swift */; };
 		A91030451FBE8CBA005F6179 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91030441FBE8CBA005F6179 /* FlickrClient.swift */; };
 		A91030471FBE8CE7005F6179 /* FlickrConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91030461FBE8CE7005F6179 /* FlickrConvenience.swift */; };
@@ -45,7 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A91030401FBE8C49005F6179 /* PhotoAlblumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoAlblumViewController.swift; path = Controller/PhotoAlblumViewController.swift; sourceTree = SOURCE_ROOT; };
+		A91030401FBE8C49005F6179 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Controller/MapViewController.swift; sourceTree = SOURCE_ROOT; };
 		A91030421FBE8C74005F6179 /* FlickrConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrConstants.swift; sourceTree = "<group>"; };
 		A91030441FBE8CBA005F6179 /* FlickrClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		A91030461FBE8CE7005F6179 /* FlickrConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrConvenience.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		A910303F1FBE8C0F005F6179 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A91030401FBE8C49005F6179 /* PhotoAlblumViewController.swift */,
+				A91030401FBE8C49005F6179 /* MapViewController.swift */,
 				A91030421FBE8C74005F6179 /* FlickrConstants.swift */,
 				A91030441FBE8CBA005F6179 /* FlickrClient.swift */,
 				A91030461FBE8CE7005F6179 /* FlickrConvenience.swift */,
@@ -327,7 +327,7 @@
 				A910304D1FBE8D8C005F6179 /* FlickrCoreDataManager.swift in Sources */,
 				A93C8D3F1FC0AB580049FD0F /* CoreDataStackManager.swift in Sources */,
 				A9EBD1991FC09179004C1709 /* Photo.swift in Sources */,
-				A91030411FBE8C49005F6179 /* PhotoAlblumViewController.swift in Sources */,
+				A91030411FBE8C49005F6179 /* MapViewController.swift in Sources */,
 				A91030471FBE8CE7005F6179 /* FlickrConvenience.swift in Sources */,
 				A910304B1FBE8D51005F6179 /* PhotoCell.swift in Sources */,
 				A93C8D3D1FC09FA50049FD0F /* Model.xcdatamodeld in Sources */,

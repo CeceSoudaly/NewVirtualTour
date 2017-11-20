@@ -195,7 +195,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         
         if let data = fetchedResultsController.fetchedObjects, data.count > 0 {
-            print("\(data.count) photos from core data fetched.")
+            print("\(data.count) photos from core data pre-fetched.")
             photoData = data
             self.photoCollectionView.reloadData()
         } else {

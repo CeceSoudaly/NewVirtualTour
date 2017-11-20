@@ -67,7 +67,7 @@ extension FlickrClient {
         DispatchQueue.main.async{
             do{
                 CoreDataStackManager.saveContext()
-                print("Save to core data :")
+                print("PreFetch Save to core data :")
             }
             catch{
                 print("Error in saving photos")

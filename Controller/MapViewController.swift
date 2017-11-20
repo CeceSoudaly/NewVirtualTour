@@ -13,7 +13,7 @@ import MapKit
 import CoreData
 
 
-class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate{
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate{
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -69,7 +69,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationM
         }
         
         locationManager.startUpdatingLocation()
-        if(PhotoAlbumViewController.stateFlag == "Delete")
+        if(MapViewController.stateFlag == "Delete")
         {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title:"Delete",style: .plain, target: self, action: #selector(deleteLocation))
             
@@ -91,7 +91,6 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationM
     
     func addLongTapGesturesToMapView() {
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("longPressAction:"))
-        longPressGesture.minimumPressDuration = 1
         mapView.addGestureRecognizer(longPressGesture)
     }
     
@@ -121,21 +120,21 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationM
     }
     
     @objc func deleteLocation(panGesture: UIPanGestureRecognizer) -> Void {
-        PhotoAlbumViewController.stateFlag = "Edit";
+        MapViewController.stateFlag = "Edit";
         deleteLabel.isHidden = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title:"Edit",style: .plain, target: self, action: #selector(doneLocation))
     }
     
     
     @objc func doneLocation(panGesture: UIPanGestureRecognizer) -> Void {
-        PhotoAlbumViewController.stateFlag = "delete";
+        MapViewController.stateFlag = "delete";
         deleteLabel.isHidden = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(title:"Done",style: .plain, target: self, action: #selector(deleteLocation))
     }
     
     @IBAction func longPressAction(_ recognizer: UIGestureRecognizer) {
         
-        if (recognizer.state == UIGestureRecognizerState.ended)
+        if (recognizer.state == UIGestureRecognizerState.began)
         {
             let touchedAt = recognizer.location(in: self.mapView) // adds the location on the view it was pressed
             let touchedAtCoordinate : CLLocationCoordinate2D = mapView.convert(touchedAt, toCoordinateFrom: self.mapView)
@@ -145,7 +144,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationM
     
     @IBAction func userTapAction(_ recognizer: UIGestureRecognizer) {
         
-        print("current state of the program ", PhotoAlbumViewController.stateFlag)
+        print("current state of the program ", MapViewController.stateFlag)
         if (recognizer.state == UIGestureRecognizerState.ended)
         {
             let touchedAt = recognizer.location(in: self.mapView) // adds the location on the view it was pressed
@@ -307,10 +306,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationM
             deletePin(locationToDelete: locationToUpdate!)
         }
         
-        
         CoreDataStackManager.saveContext()
-        print("Share context save what do you have???",self.fetchAllLocations().count)
-        
         locationToUpdate = nil
         annotaionToUpdate = nil
         
@@ -347,13 +343,13 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationM
             let locationToBeAdded = Location(dictionary: locationDictionary, context: CoreDataStackManager.getContext())
             self.locations.append(locationToBeAdded)
             
-            // try self.sharedContext.save()
             CoreDataStackManager.saveContext()
             
             //Pre-Fetch photos entites related to this location and save to core data
             FlickrClient.sharedInstance().prefetchPhotosForLocationAndSaveToDataContext(location: locationToBeAdded) {
                 error in
                 if let errorMessage = error {
+                    
                     print(errorMessage.localizedDescription)
                 }
             }
@@ -376,7 +372,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, CLLocationM
     
 }
 
-extension PhotoAlbumViewController {
+extension MapViewController {
     
     func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
         print("regionDidChangeAnimated: \(String(describing: mapView.description))")
@@ -435,14 +431,14 @@ extension PhotoAlbumViewController {
         annotaionToUpdate = nil
         self.locationToUpdate = getMapLocationFromAnnotation(annotation: view.annotation!)
         annotaionToUpdate = view.annotation
-        
-        if(PhotoAlbumViewController.stateFlag != "delete" ) {
+        mapView.deselectAnnotation(self.annotaionToUpdate, animated: true)
+  
+        if(MapViewController.stateFlag != "delete" ) {
             // Show flickr images on right call out
             performSegue(withIdentifier: "PicGallery", sender: view)
             
-        } else if(PhotoAlbumViewController.stateFlag == "delete"){
+        } else if(MapViewController.stateFlag == "delete"){
             // Delete annotation and location on left call out
-            annotaionToUpdate = view.annotation
             removeMapLocation()
         }
         
