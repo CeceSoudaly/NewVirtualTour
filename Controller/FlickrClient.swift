@@ -111,21 +111,13 @@ class FlickrClient : NSObject {
                     
                     //Keep photo and location object consistence, both are created by dictionary.
                     let photo = Photo(dictionary: photosDictionary, context: CoreDataStackManager.getContext())
-                    
-                    do {
-                        photo.imageUrl = urlString
-                        photo.location = location
-                        imageUrlStrings.append(photo)
-                        
-                        try CoreDataStackManager.saveContext()
-                        
-                    } catch let error as NSError  {
-                        print("Could not save \(error), \(error.userInfo)")
-                    } catch {
-                        print("Could not save")
-                    }
-                    
+
+                    photo.imageUrl = urlString
+                    photo.location = location
+                    imageUrlStrings.append(photo)
+                    CoreDataStackManager.saveContext()
                 }
+                
                 completionHandler(imageUrlStrings, nil)
             }
             
