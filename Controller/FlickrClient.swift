@@ -53,7 +53,6 @@ class FlickrClient : NSObject {
     
     func getImagesFromFlickr(_ location: Location, _ page: Int, _ completionHandler: @escaping (_ result: [Photo]?, _ error: NSError?) -> Void) {
         
-        
         let methodParameters: [String:String] = [
             ParameterKeys.Method  : Methods.SearchPhotosbyLatLon,
             ParameterKeys.ApiKey: Constant.ApiKey,

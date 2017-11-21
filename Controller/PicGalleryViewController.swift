@@ -149,6 +149,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
                 cell.photoDownloadActivityIndicator.stopAnimating()
             }
             cell.photoImage.image = UIImage(data: photo.imageData as! Data)
+        
         } else {
             
             FlickrClient.sharedInstance().taskForImage(filePath: photo.imageUrl!) { (results, error) in
@@ -212,8 +213,11 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
             for photo in photoData {
                 CoreDataStackManager.getContext().delete(photo)
             }
+            
             CoreDataStackManager.saveContext()
-            currentPage += 1
+            let pageLimit = min(21, 100)
+            currentPage = Int(arc4random_uniform(UInt32(pageLimit))) + 1
+            //currentPage += 1
             getPhotosFromFlickr(currentPageNumber: currentPage)
             
         }

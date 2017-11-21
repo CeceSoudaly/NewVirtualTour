@@ -125,7 +125,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         navigationItem.rightBarButtonItem = UIBarButtonItem(title:"Edit",style: .plain, target: self, action: #selector(doneLocation))
     }
     
-    
     @objc func doneLocation(panGesture: UIPanGestureRecognizer) -> Void {
         MapViewController.stateFlag = "delete";
         deleteLabel.isHidden = false
@@ -159,7 +158,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             self.locationToUpdate = getMapLocationFromAnnotation(annotation: newAnnotation!)
         }
-        
         
     }
     
