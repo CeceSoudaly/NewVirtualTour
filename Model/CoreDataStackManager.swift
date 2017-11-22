@@ -33,19 +33,19 @@ class CoreDataStackManager {
     // Documents Directory URL - the path the sqlite file
     lazy var applicationDocumentsDirectory:NSURL? = {
         let urls = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
-        
+
         if urls.count > 0 {
             if let url = urls[urls.count-1] as? NSURL {
                 return url
             }
         }
         return nil
-        
+
     }()
-    
+
     // The managed object property for the application
     lazy var managedObjectModel: NSManagedObjectModel? = {
-        
+
         if  let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd") {
             if let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL) {
                 return managedObjectModel
@@ -53,23 +53,23 @@ class CoreDataStackManager {
         }
         return nil
     }()
-    
+
     lazy var pesistentStoreCoordinator: NSPersistentStoreCoordinator? = {
-        
+
         var coordinator: NSPersistentStoreCoordinator? = nil
-        
+
         if let objectModel = self.managedObjectModel {
             coordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel )
-            
+
             if let appURL = self.applicationDocumentsDirectory {
-                
+
                 let url = appURL.appendingPathComponent(SQLITE_FILE_NAME)
-                
+
                 var error:NSError? = nil
-                
+
             }
         }
-        
+
         return coordinator
     }()
     

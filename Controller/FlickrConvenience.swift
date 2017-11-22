@@ -104,14 +104,12 @@ extension FlickrClient {
         
         
         // Make the request
-        let task = session.dataTask(with: request) {
-            data, response, downloadError in
-            
-            if let error = downloadError {
-                completionHandler(data! as NSData, error as NSError)
-            } else {
-                completionHandler(data as! NSData, nil)
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard error == nil else {
+                completionHandler(nil, error as! NSError)
+                return
             }
+            completionHandler(data as! NSData, nil)
         }
         task.resume()
         return task

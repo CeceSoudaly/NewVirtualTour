@@ -91,6 +91,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func addLongTapGesturesToMapView() {
         let longPressGesture: UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("longPressAction:"))
+        
+        longPressGesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPressGesture)
     }
     
@@ -158,7 +160,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             self.locationToUpdate = getMapLocationFromAnnotation(annotation: newAnnotation!)
         }
-        
     }
     
     func fetchAllLocations() -> [Location] {
@@ -344,13 +345,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             CoreDataStackManager.saveContext()
             
             //Pre-Fetch photos entites related to this location and save to core data
+            //Prefetch page 1.
             FlickrClient.sharedInstance().getImagesFromFlickr(locationToBeAdded,1) { (results, error) in
                  guard error == nil else {
-                    let alert = UIAlertController(title: "Could not prefetch photos from flickr", message: "\(error)", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Could not prefetch photos from flickr", message: "\(error?.localizedDescription)", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                     return
                 }
+   
              }
             
         }

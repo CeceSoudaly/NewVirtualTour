@@ -150,21 +150,28 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
             cell.photoImage.image = UIImage(data: photo.imageData as! Data)
         
         } else {
+
+                FlickrClient.sharedInstance().taskForImage(filePath: photo.imageUrl!) { (results, error) in
+
+                    guard let imageData = results else {
+                        self.displayAlert(title: "Image data error", message: error?.localizedFailureReason)
+                        return
+                    }
+
+                    DispatchQueue.main.async(){
+                        photo.imageData = imageData as NSData?
+                        cell.photoDownloadActivityIndicator.stopAnimating()
+                        cell.photoImage.image = UIImage(data: photo.imageData as! Data)
+                    }
+
+                }
             
-            FlickrClient.sharedInstance().taskForImage(filePath: photo.imageUrl!) { (results, error) in
-                
-                guard let imageData = results else {
-                    self.displayAlert(title: "Image data error", message: "error")
-                    return
-                }
-                
-                DispatchQueue.main.async(){
-                    photo.imageData = imageData as NSData?
-                    cell.photoDownloadActivityIndicator.stopAnimating()
-                    cell.photoImage.image = UIImage(data: photo.imageData as! Data)
-                }
-                
-            }        }
+           
+            
+        }
+        
+        
+        
         if selectedIndexPaths.index(of: indexPath as NSIndexPath) != nil {
             cell.photoImage.alpha = 0.25
         }else {

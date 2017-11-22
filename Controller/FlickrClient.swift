@@ -110,7 +110,7 @@ class FlickrClient : NSObject {
                     
                     //Keep photo and location object consistence, both are created by dictionary.
                     let photo = Photo(dictionary: photosDictionary, context: CoreDataStackManager.getContext())
-
+                    //saving it to core data
                     photo.imageUrl = urlString
                     photo.location = location
                     imageUrlStrings.append(photo)
