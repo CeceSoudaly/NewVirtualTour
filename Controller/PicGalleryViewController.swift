@@ -140,7 +140,6 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
         var cellImage = UIImage(named: "imagePlaceholder")
       
         cell.photoImage.image = nil
-  
         cell.photoDownloadActivityIndicator.startAnimating()
         
         // Set the flickr image if already available (from hard disk or image cache)
