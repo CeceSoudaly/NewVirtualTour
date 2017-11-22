@@ -166,11 +166,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
 
                 }
             
-           
-            
         }
-        
-        
         
         if selectedIndexPaths.index(of: indexPath as NSIndexPath) != nil {
             cell.photoImage.alpha = 0.25
@@ -182,8 +178,7 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     //MARK:- Core Data
-    
-    func fetchPhotos(){
+     func fetchPhotos(){
         
         //MARK: Fetch Request
         let fetchRequest:NSFetchRequest<Photo> = Photo.fetchRequest() as! NSFetchRequest<Photo>
