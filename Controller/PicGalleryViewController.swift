@@ -215,9 +215,9 @@ class PicGalleryViewController: UIViewController, UICollectionViewDelegate, UICo
             }
             
             CoreDataStackManager.saveContext()
-            let pageLimit = min(21, 100)
+           let pageLimit = min(21, 100)
             currentPage = Int(arc4random_uniform(UInt32(pageLimit))) + 1
-            //currentPage += 1
+           // currentPage += 1
             getPhotosFromFlickr(currentPageNumber: currentPage)
             
         }

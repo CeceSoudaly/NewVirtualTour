@@ -108,7 +108,6 @@ extension FlickrClient {
             data, response, downloadError in
             
             if let error = downloadError {
-                //let newError = FlickrClient.errorForData(data, response: response, error: error)
                 completionHandler(data! as NSData, error as NSError)
             } else {
                 completionHandler(data as! NSData, nil)

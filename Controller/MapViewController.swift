@@ -344,13 +344,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             CoreDataStackManager.saveContext()
             
             //Pre-Fetch photos entites related to this location and save to core data
-            FlickrClient.sharedInstance().prefetchPhotosForLocationAndSaveToDataContext(location: locationToBeAdded) {
-                error in
-                if let errorMessage = error {
-                    
-                    print(errorMessage.localizedDescription)
+            FlickrClient.sharedInstance().getImagesFromFlickr(locationToBeAdded,1) { (results, error) in
+                 guard error == nil else {
+                    let alert = UIAlertController(title: "Could not prefetch photos from flickr", message: "\(error)", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
                 }
-            }
+             }
             
         }
         catch{

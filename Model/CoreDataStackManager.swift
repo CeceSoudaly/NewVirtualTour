@@ -9,15 +9,15 @@
 import Foundation
 import CoreData
 
+private let SQLITE_FILE_NAME = "model.sqlite"
+
 class CoreDataStackManager {
-  
+    
     // MARK: Properties
     private let model: NSManagedObjectModel
     internal let coordinator: NSPersistentStoreCoordinator
     private let modelURL: URL
     internal let dbURL: URL
-    internal let persistingContext: NSManagedObjectContext
-    internal let backgroundContext: NSManagedObjectContext
     let context: NSManagedObjectContext
     
     //MARK:- SharedInstance
@@ -27,8 +27,55 @@ class CoreDataStackManager {
         }
         return Static.instance!
     }
-
+    
+    
+    //MARK:- The Core Data Stack
+    // Documents Directory URL - the path the sqlite file
+    lazy var applicationDocumentsDirectory:NSURL? = {
+        let urls = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask)
+        
+        if urls.count > 0 {
+            if let url = urls[urls.count-1] as? NSURL {
+                return url
+            }
+        }
+        return nil
+        
+    }()
+    
+    // The managed object property for the application
+    lazy var managedObjectModel: NSManagedObjectModel? = {
+        
+        if  let modelURL = Bundle.main.url(forResource: "Model", withExtension: "momd") {
+            if let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL) {
+                return managedObjectModel
+            }
+        }
+        return nil
+    }()
+    
+    lazy var pesistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+        
+        var coordinator: NSPersistentStoreCoordinator? = nil
+        
+        if let objectModel = self.managedObjectModel {
+            coordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel )
+            
+            if let appURL = self.applicationDocumentsDirectory {
+                
+                let url = appURL.appendingPathComponent(SQLITE_FILE_NAME)
+                
+                var error:NSError? = nil
+                
+            }
+        }
+        
+        return coordinator
+    }()
+    
+    
     // MARK: Initializers
+    
     init?(modelName: String) {
         
         // Assumes the model is in the main bundle
@@ -44,21 +91,13 @@ class CoreDataStackManager {
             return nil
         }
         self.model = model
-     
+        
         // Create the store coordinator
         coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
-        // Create a persistingContext (private queue) and a child one (main queue)
         // create a context and add connect it to the coordinator
-        persistingContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        persistingContext.persistentStoreCoordinator = coordinator
-        
         context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        context.parent = persistingContext
-        
-        // Create a background context child of main context
-        backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.parent = context
+        context.persistentStoreCoordinator = coordinator
         
         // Add a SQLite store located in the documents folder
         let fm = FileManager.default
@@ -85,7 +124,7 @@ class CoreDataStackManager {
     func addStoreCoordinator(_ storeType: String, configuration: String?, storeURL: URL, options : [NSObject:AnyObject]?) throws {
         try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: nil)
     }
- 
+    
     class func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -131,56 +170,5 @@ class CoreDataStackManager {
         return container
     }()
     
-}
-
-// MARK: - CoreDataStackManager (Save Data)
-
-extension CoreDataStackManager {
-    
-    func save() {
-        // We call this synchronously, but it's a very fast
-        // operation (it doesn't hit the disk). We need to know
-        // when it ends so we can call the next save (on the persisting
-        // context). This last one might take some time and is done
-        // in a background queue
-        context.performAndWait() {
-            
-            if self.context.hasChanges {
-                do {
-                    try self.context.save()
-                } catch {
-                    fatalError("Error while saving main context: \(error)")
-                }
-                
-                // now we save in the background
-                self.persistingContext.perform() {
-                    do {
-                        try self.persistingContext.save()
-                    } catch {
-                        fatalError("Error while saving persisting context: \(error)")
-                    }
-                }
-            }
-        }
-    }
-    
-    func autoSave(_ delayInSeconds : Int) {
-        
-        if delayInSeconds > 0 {
-            do {
-                try self.context.save()
-                print("Autosaving")
-            } catch {
-                print("Error while autosaving")
-            }
-            
-            let delayInNanoSeconds = UInt64(delayInSeconds) * NSEC_PER_SEC
-            let time = DispatchTime.now() + Double(Int64(delayInNanoSeconds)) / Double(NSEC_PER_SEC)
-            
-            DispatchQueue.main.asyncAfter(deadline: time) {
-                self.autoSave(delayInSeconds)
-            }
-        }
-    }
 }
 
